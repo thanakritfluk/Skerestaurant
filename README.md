@@ -1,2 +1,2 @@
 # Skerestaurant
-Add Arrays in SkeRestaurant
+Add menu with txt in SkeRestaurant
