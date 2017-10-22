@@ -58,7 +58,7 @@ public class SkeRestaurant {
 
         public static void cancelOrder(String choice){
             if(choice.equalsIgnoreCase("x")){
-                int numCancel=getQuatity("Enter number of menu: ");
+                int numCancel=getQuatity("***** Cancel order *****\nEnter number of menu: ");
                 sc.nextLine();
                 RestaurantManager.menuQuantity[numCancel-1]=0;
                 System.out.printf("%s were cancle%n",RestaurantManager.menuList.get(numCancel-1));
@@ -98,7 +98,7 @@ public class SkeRestaurant {
                    count++;
                     }
                     if(count==RestaurantManager.menuPrice.size()){
-                    System.out.println("==Invalid Menu==");
+                    System.out.printf("%n==Invalid Menu==%n");
                     }
                 }
                 count=0;
