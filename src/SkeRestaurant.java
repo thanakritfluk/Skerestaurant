@@ -11,6 +11,7 @@ public class SkeRestaurant {
 
         static int  choice,lastMenu;
         static double totalPrice=0;
+        static String heart="\u2665\u2665 \u2665\u2665 \u2665\u2665 \u2665\u2665";
         static String   printCalpart="| %-20s\t |  %3d  |   %9.2f     |\n", printTotalpart ="+------------------------+-------+-----------------+\n| Total\t\t\t\t     |\t\t |%12.2f     |\n+------------------------+-------+-----------------+\n";
         static ArrayList<String> list= new ArrayList<>(),menuList= new ArrayList<>();
         static ArrayList <Double> menuPrice= new ArrayList<>();
@@ -105,6 +106,7 @@ public class SkeRestaurant {
 
                 if(choice==lastMenu+3){
                     printOrder();
+                    System.out.printf("\n  "+heart+" Thank You For Your Order "+heart);
                     break;
                 }
 

@@ -1,0 +1,16 @@
+## add menu by using this text
+## Menu first and Price on next line
+## Menu
+## Price
+######################
+##Cafe Theme##
+Caramel Latte
+65
+Strawberry Latte
+65
+Cocoa
+50
+Thai Tea
+55
+Japanese Green Tea
+60
