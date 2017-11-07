@@ -14,7 +14,7 @@ public class RestaurantManager extends SkeRestaurant {
 
     public static void readFile() throws IOException {
 
-        FileReader file = new FileReader("src\\data\\memnu.txt");
+        FileReader file = new FileReader("src\\data\\menu.txt");
         BufferedReader reader = new BufferedReader(file);
         String text = "";
         String readline = reader.readLine();
@@ -41,7 +41,7 @@ public class RestaurantManager extends SkeRestaurant {
         return menuPrice;
     }
 
-    public static void setData() {
+    public static void setData() { //set amount of any data
         menuNum = new Integer[menuPrice.size()];
         menuQuantity = new Integer[menuPrice.size()];
         sumPrice = new Double[menuPrice.size()];

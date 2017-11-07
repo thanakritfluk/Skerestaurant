@@ -14,9 +14,6 @@ public class SkeRestaurant {
     private static double totalPrice = 0;
 
 
-
-
-
     private static void menuList() {
 
         System.out.printf("--------- Welcome to SKE Restaurant ---------%n");
@@ -123,8 +120,7 @@ public class SkeRestaurant {
         RestaurantManager.setData();
         menuList();
         checkProcess();
-//        System.out.println(RestaurantManager.list);
-//        System.out.println(RestaurantManager.menuPrice);
+
     }
 
 }
