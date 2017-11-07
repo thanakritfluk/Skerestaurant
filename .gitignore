@@ -10,6 +10,7 @@ bin-release/
 .settings/
 
 # Executables
+*src\\menu.txt
 *.swf
 *.air
 *.ipa

@@ -1,0 +1,10 @@
+#---------------------------------- Welcome to SKE Restaurant ----------------------------------
+#                                                                                              #
+#                      add new menu write down menuname;price; in the one line                 #
+#                                                                                              #
+#                                       Holloween Theme                                        #
+#                                                                                              #
+Pumpkin;50;
+Candy;60;
+Ghost;71.6;
+Chocolate;1500;
