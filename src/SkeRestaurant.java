@@ -24,28 +24,16 @@ public class SkeRestaurant {
             }
 
             if (i == RestaurantManager.menuList.size() - 1) {
-                System.out.printf("%n[%s] Edit order\n[%s] Print order\n[%s] Review order and Checkout\n[%s] Cancel order\n", "e", "p", "c", "x");
+                System.out.printf("\n[%s] Cancel order\n[%s] Print order\n[%s] Review order and Checkout\n[%s] Exit \n", "c", "p", "r","x");
             }
         }
 
     }
 
     private static int getQuantity(String prompt) {
+
         System.out.print(prompt);
-
         return sc.nextInt();
-    }
-
-    private static void editOrder(String choice) {
-
-        if (choice.equalsIgnoreCase("e")) {
-            int numChange = getQuantity("***** Edit order *****\nEnter number of menu: ");
-
-            RestaurantManager.menuQuantity[numChange - 1] = getQuantity("Change to: ");
-            System.out.printf("%s were change to %d%n", RestaurantManager.menuList.get(numChange - 1), RestaurantManager.menuQuantity[numChange - 1]);
-            sc.nextLine();
-        }
-
     }
 
     private static void printOrder() {
@@ -64,7 +52,7 @@ public class SkeRestaurant {
     }
 
     private static void cancelOrder(String choice) {
-        if (choice.equalsIgnoreCase("x")) {
+        if (choice.equalsIgnoreCase("c")) {
             int numCancel = getQuantity("***** Cancel order *****\nEnter number of menu: ");
             sc.nextLine();
             RestaurantManager.menuQuantity[numCancel - 1] = 0;
@@ -72,43 +60,55 @@ public class SkeRestaurant {
         }
     }
 
+    private static void getOrder(String choice) {
+        for (int i = 0; i < RestaurantManager.menuPrice.size(); i++) {
+            if (choice.equalsIgnoreCase(Integer.toString(RestaurantManager.menuNum[i]))) {
+                RestaurantManager.menuQuantity[i] += getQuantity("Enter Quantity: ");
+                sc.nextLine();
+            }
+
+        }
+    }
+
+    private static void checkInvalid(String choice) {
+        for (int i = 0; i < RestaurantManager.menuPrice.size(); i++) {
+            if (!choice.equalsIgnoreCase("c") && !choice.equalsIgnoreCase("p") && !choice.equalsIgnoreCase("r") && !choice.equalsIgnoreCase("x") && !choice.equalsIgnoreCase(Integer.toString(RestaurantManager.menuNum[i]))) {
+                count++;
+            }
+            if (count == RestaurantManager.menuPrice.size()) {
+                System.out.printf("%n==Invalid Menu==%n");
+            }
+        }
+        count = 0;
+    }
+
 
     private static void checkProcess() {
+
         while (0 == 0) {
             System.out.printf("%nEnter your Choice: ");
             choice = sc.nextLine();
 
-            for (int i = 0; i < RestaurantManager.menuPrice.size(); i++) {
-                if (choice.equalsIgnoreCase(Integer.toString(RestaurantManager.menuNum[i]))) {
-                    RestaurantManager.menuQuantity[i] += getQuantity("Enter Quantity: ");
-                    sc.nextLine();
-                }
-
-            }
-
-            editOrder(choice);
+            getOrder(choice);
 
             if (choice.equalsIgnoreCase("p")) {
                 printOrder();
             }
 
-            if (choice.equalsIgnoreCase("c")) {
+            if (choice.equalsIgnoreCase("r")) {
                 printOrder();
-                System.out.printf("\n  " + heart + " Thank You For Your Order " + heart);
-                break;
+                System.out.printf("\n  " + heart + " Thank You For Your Order " + heart +"\n");
+                continue;
             }
 
             cancelOrder(choice);
 
-            for (int i = 0; i < RestaurantManager.menuPrice.size(); i++) {
-                if (!choice.equalsIgnoreCase("e") && !choice.equalsIgnoreCase("p") && !choice.equalsIgnoreCase("c") && !choice.equalsIgnoreCase("x") && !choice.equalsIgnoreCase(Integer.toString(RestaurantManager.menuNum[i]))) {
-                    count++;
-                }
-                if (count == RestaurantManager.menuPrice.size()) {
-                    System.out.printf("%n==Invalid Menu==%n");
-                }
+            checkInvalid(choice);
+
+            if(choice.equalsIgnoreCase("x")){
+                break;
             }
-            count = 0;
+
         }
     }
 

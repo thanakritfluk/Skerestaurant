@@ -52,5 +52,9 @@ public class RestaurantManager extends SkeRestaurant {
         }
     }
 
+    public static void recordOrder(){
+
+    }
+
 
 }

@@ -8,3 +8,4 @@ Pumpkin;50;
 Candy;60;
 Ghost;71.25;
 Chocolate;35.5;
+Milkl;45;
