@@ -2,6 +2,7 @@
  * This class can read menu from txt file,manage size of any variable,record order in to txt file,set menu name and menu prices.
  *
  * @author Thanakrit Daowrueang #6010545773
+ *
  */
 
 import java.util.ArrayList;

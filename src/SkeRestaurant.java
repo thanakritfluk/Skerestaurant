@@ -1,12 +1,14 @@
-
-// Ske-restaurant can check process that user input and run with interface.
-// @Thanakrit Daowrong 6010545773
+/**
+ * Ske-restaurant can check process that user input and run with interface.
+ * @author Thanakrit Daowrong #6010545773
+ */
 
 import java.util.Scanner;
 import java.io.*;
 
 public class SkeRestaurant {
-    private static Scanner sc = new Scanner(System.in);
+
+    public static Scanner sc = new Scanner(System.in);
     private static String choice;
     private static String heart = "\u2665\u2665 \u2665\u2665 \u2665\u2665 \u2665\u2665";
     public static String printCalpart = "| %-20s\t |  %3d  |   %,9.2f     |\n", printTotalpart = "+------------------------+-------+-----------------+\n| Total\t\t\t\t     |\t\t |%,12.2f     |\n+------------------------+-------+-----------------+\n";
