@@ -15,7 +15,6 @@ public class SkeRestaurant {
     public static String printCalpart = "| %-20s\t |  %3d  |   %,9.2f     |\n", printTotalpart = "+------------------------+-------+-----------------+\n| Total\t\t\t\t     |\t\t |%,12.2f     |\n+------------------------+-------+-----------------+\n";
     private static int count;
     public static double totalPrice = 0;
-    private static RestaurantManager manager = new RestaurantManager();
 
 
     private static void menuList() {//Show menu name and other functions.
@@ -72,9 +71,9 @@ public class SkeRestaurant {
                 totalPrice += RestaurantManager.sumPrice[j];
 
             }
-            if (totalPrice == 0&&j== RestaurantManager.menuPrice.size()-1) {
+            if (totalPrice == 0 && j == RestaurantManager.menuPrice.size() - 1) {
                 System.out.printf("| %-17s |  %3s  |   %9s     |\n", "Did't order any things", "", "");
-            } else if(RestaurantManager.menuQuantity[j]!=0){
+            } else if (RestaurantManager.menuQuantity[j] != 0) {
                 System.out.printf(printCalpart, RestaurantManager.menuList.get(j), RestaurantManager.menuQuantity[j], RestaurantManager.sumPrice[j]);
             }
 
