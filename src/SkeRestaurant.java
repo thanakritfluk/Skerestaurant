@@ -1,5 +1,6 @@
 /**
  * Ske-restaurant can check process that user input and run with interface.
+ *
  * @author Thanakrit Daowrong #6010545773
  */
 
@@ -8,7 +9,7 @@ import java.io.*;
 
 public class SkeRestaurant {
 
-    public static Scanner sc = new Scanner(System.in);
+    private static Scanner sc = new Scanner(System.in);
     private static String choice;
     private static String heart = "\u2665\u2665 \u2665\u2665 \u2665\u2665 \u2665\u2665";
     public static String printCalpart = "| %-20s\t |  %3d  |   %,9.2f     |\n", printTotalpart = "+------------------------+-------+-----------------+\n| Total\t\t\t\t     |\t\t |%,12.2f     |\n+------------------------+-------+-----------------+\n";
@@ -21,17 +22,14 @@ public class SkeRestaurant {
         System.out.printf("--------- Welcome to SKE Restaurant ---------%n");
         for (int i = 0; i < RestaurantManager.menuList.size() + 1; i++) {
 
-            if (i < RestaurantManager.menuList.size()) {
+            if (i < RestaurantManager.menuList.size())
                 System.out.printf("[%d] %-30.20s  %9.2f%n", i + 1, RestaurantManager.menuList.get(i), Double.parseDouble(String.valueOf(RestaurantManager.menuPrice.get(i))));
-            }
 
-            if (i == RestaurantManager.menuList.size() - 1) {
-                System.out.printf("\n[%s] Cancel order" +
-                        "\n[%s] Print order\n[%s] " +
-                        "Review order and Checkout" +
-                        "\n[%s] Exit " +
-                        "\n", "c", "p", "r", "x");
-            }
+            if (i == RestaurantManager.menuList.size() - 1) System.out.printf("\n[%s] Cancel order" +
+                    "\n[%s] Print order\n[%s] " +
+                    "Review order and Checkout" +
+                    "\n[%s] Exit " +
+                    "\n", "c", "p", "r", "x");
         }
 
     }
@@ -50,14 +48,21 @@ public class SkeRestaurant {
 
         }
     }
+
     private static void cancelOrder() {//Cancel the order.
 
         int numCancel = getQuantity("***** Cancel order *****\nEnter number of menu: ");
         sc.nextLine();
-        RestaurantManager.menuQuantity[numCancel - 1] = 0;
-        System.out.printf("%s were cancle%n", RestaurantManager.menuList.get(numCancel - 1));
+        if (numCancel > 0 && numCancel <= RestaurantManager.menuNum.length) {
+            RestaurantManager.menuQuantity[numCancel - 1] = 0;
+            System.out.printf("%s were cancel\n", RestaurantManager.menuList.get(numCancel - 1));
+
+        } else {
+            System.out.println("**Invalid Menu Number**\n");
+        }
 
     }
+
     private static void printOrder() { //Print all order.
         totalPrice = 0;
         System.out.print("+--------- Menu ---------+- Qty -+----- Price -----+\n");
@@ -65,15 +70,20 @@ public class SkeRestaurant {
             if (RestaurantManager.menuQuantity[j] != 0) {
                 RestaurantManager.sumPrice[j] = RestaurantManager.menuQuantity[j] * RestaurantManager.menuPrice.get(j);
                 totalPrice += RestaurantManager.sumPrice[j];
-                System.out.printf(printCalpart, RestaurantManager.menuList.get(j), RestaurantManager.menuQuantity[j], RestaurantManager.sumPrice[j]);
 
+            }
+            if (totalPrice == 0&&j== RestaurantManager.menuPrice.size()-1) {
+                System.out.printf("| %-17s |  %3s  |   %9s     |\n", "Did't order any things", "", "");
+            } else if(RestaurantManager.menuQuantity[j]!=0){
+                System.out.printf(printCalpart, RestaurantManager.menuList.get(j), RestaurantManager.menuQuantity[j], RestaurantManager.sumPrice[j]);
             }
 
         }
+
         System.out.printf(printTotalpart, totalPrice);
     }
 
-    private static void reviewAndcheckout() throws IOException { //Print order and check out.
+    private static void reviewCheckout() throws IOException { //Print order and check out.
         printOrder();
         RestaurantManager.recordOrder();
         for (int i = 0; i < RestaurantManager.menuList.size(); i++) {
@@ -82,7 +92,6 @@ public class SkeRestaurant {
         }
         System.out.printf("\n  " + heart + " Thank You For Your Order " + heart + "\n");
     }
-
 
 
     private static void checkInvalid(String choice) { // Check input right or wrong.
@@ -108,12 +117,12 @@ public class SkeRestaurant {
 
             switch (choice) {
                 case "c":
-                cancelOrder();
+                    cancelOrder();
                 case "p":
                     printOrder();
                     break;
                 case "r":
-                    reviewAndcheckout();
+                    reviewCheckout();
                     continue;
                 case "x":
                     System.exit(0);
@@ -131,7 +140,6 @@ public class SkeRestaurant {
         RestaurantManager.setData();
         menuList();
         checkProcess();
-
 
     }
 
