@@ -17,6 +17,8 @@ public class SkeRestaurant {
     public static double totalPrice = 0;
 
 
+
+
     private static void menuList() {//Show menu name and other functions.
         System.out.printf("--------- Welcome to SKE Restaurant ---------%n");
         for (int i = 0; i < RestaurantManager.menuList.size() + 1; i++) {
@@ -30,7 +32,6 @@ public class SkeRestaurant {
                     "\n[%s] Exit " +
                     "\n", "c", "p", "r", "x");
         }
-
     }
 
     private static int getQuantity(String prompt) {//Get number from input;
@@ -62,29 +63,31 @@ public class SkeRestaurant {
 
     }
 
-    private static void printOrder() { //Print all order.
+    public static double getTotal(int[] order) { // Get total of order.
         totalPrice = 0;
+        for(int k=0; k<order.length; k++)
+        if(RestaurantManager.menuQuantity[k] != 0){
+        totalPrice +=  RestaurantManager.menuQuantity[k] * RestaurantManager.menuPrice.get(k);
+        }
+        return totalPrice;
+    }
+
+    private static void printOrder() { //Print all order.
         System.out.print("+--------- Menu ---------+- Qty -+----- Price -----+\n");
         for (int j = 0; j < RestaurantManager.menuPrice.size(); j++) {
-            if (RestaurantManager.menuQuantity[j] != 0) {
-                RestaurantManager.sumPrice[j] = RestaurantManager.menuQuantity[j] * RestaurantManager.menuPrice.get(j);
-                totalPrice += RestaurantManager.sumPrice[j];
-
-            }
             if (totalPrice == 0 && j == RestaurantManager.menuPrice.size() - 1) {
                 System.out.printf("| %-17s |  %3s  |   %9s     |\n", "Did't order any things", "", "");
             } else if (RestaurantManager.menuQuantity[j] != 0) {
-                System.out.printf(printCalpart, RestaurantManager.menuList.get(j), RestaurantManager.menuQuantity[j], RestaurantManager.sumPrice[j]);
+                getTotal(RestaurantManager.menuQuantity);
+                System.out.printf(printCalpart, RestaurantManager.menuList.get(j), RestaurantManager.menuQuantity[j], RestaurantManager.menuPrice.get(j) * RestaurantManager.menuQuantity[j]);
             }
-
         }
-
         System.out.printf(printTotalpart, totalPrice);
     }
 
     private static void reviewCheckout() throws IOException { //Print order and check out.
         printOrder();
-        RestaurantManager.recordOrder();
+        RestaurantManager.recordOrder(totalPrice);
         for (int i = 0; i < RestaurantManager.menuList.size(); i++) {
             RestaurantManager.menuQuantity[i] = 0;
             totalPrice = 0;

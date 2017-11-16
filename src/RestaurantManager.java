@@ -2,7 +2,6 @@
  * This class can read menu from txt file,manage size of any variable,record order in to txt file,set menu name and menu prices.
  *
  * @author Thanakrit Daowrueang #6010545773
- *
  */
 
 import java.util.ArrayList;
@@ -10,16 +9,16 @@ import java.io.*;
 
 public class RestaurantManager extends SkeRestaurant {
 
-    static ArrayList<String> list = new ArrayList<>(), menuList = new ArrayList<>();
+    private static ArrayList<String> list = new ArrayList<>();
+    public static ArrayList<String> menuList = new ArrayList<>();
     static ArrayList<Double> menuPrice = new ArrayList<>();
-    static Double[] sumPrice;
-    static Integer[] menuNum, menuQuantity;
-    static int orderNumber=0;
-    static String stringOrderNum;
+    private static Double[] sumPrice;
+    static Integer[] menuNum;
+    static int[] menuQuantity;
+    private static int orderNumber = 0;
 
 
-    public static void readFile() throws IOException { //Read data from files.
-
+    static void readFile() throws IOException { //Read data from files.
         FileReader file = new FileReader("src\\data\\menu.txt");
         BufferedReader reader = new BufferedReader(file);
         String readline = reader.readLine();
@@ -48,7 +47,7 @@ public class RestaurantManager extends SkeRestaurant {
 
     public static void setData() { //Set size of any data
         menuNum = new Integer[menuPrice.size()];
-        menuQuantity = new Integer[menuPrice.size()];
+        menuQuantity = new int[menuPrice.size()];
         sumPrice = new Double[menuPrice.size()];
         for (int i = 0; i < menuPrice.size(); i++) {
             menuNum[i] = i + 1;
@@ -63,45 +62,41 @@ public class RestaurantManager extends SkeRestaurant {
         String readline = reader.readLine();
 
         while (readline != null) {
-            if(readline.startsWith("=")){
-                stringOrderNum="0";
-            }else {
+            if (readline.startsWith("=")) {
+                orderNumber = Integer.parseInt("0");
+            } else {
                 if (readline.startsWith("OrderNumber")) {
                     String[] input = readline.trim().split(": ");
-                    stringOrderNum = input[1];
+                    orderNumber = Integer.parseInt(input[1]);
                 }
             }
             readline = reader.readLine();
         }
-        orderNumber = Integer.parseInt(stringOrderNum);
         return orderNumber;
     }
 
 
-    public static void recordOrder() throws IOException { //Write the order that user input to record order file.
+    public static void recordOrder(double total) throws IOException { //Write the order that user input to record order file.
         String outPut = "src/data/recordOrder.txt";
         OutputStream out = null;
         try {
-            out = new FileOutputStream(outPut,true);
+            out = new FileOutputStream(outPut, true);
         } catch (FileNotFoundException ex) {
             System.out.println("Couldn't open output file " + outPut);
             return;
         }
-        PrintStream pout = new PrintStream(out);
-        int lastOrder=getLastOrder();
-        pout.printf("\nOrderNumber: %d\n",lastOrder+1);
-        pout.print("+--------- Menu ---------+- Qty -+----- Price -----+\n");
+        PrintStream printOut = new PrintStream(out);
+        int lastOrder = getLastOrder();
+        printOut.printf("\nOrderNumber: %d\n", lastOrder + 1);
+        printOut.print("+--------- Menu ---------+- Qty -+----- Price -----+\n");
         for (int j = 0; j < menuPrice.size(); j++) {
             if (menuQuantity[j] != 0) {
                 sumPrice[j] = menuQuantity[j] * menuPrice.get(j);
-                totalPrice += sumPrice[j];
-                pout.printf(printCalpart, menuList.get(j), menuQuantity[j], sumPrice[j]);
-
+                printOut.printf(printCalpart, menuList.get(j), menuQuantity[j], sumPrice[j]);
             }
-
         }
-        pout.printf(printTotalpart, totalPrice);
-        pout.close();
+        printOut.printf(printTotalpart, total);
+        printOut.close();
     }
 
 
